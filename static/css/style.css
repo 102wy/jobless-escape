@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Happiness-Sans-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EF_MACHO';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/EF_MACHO.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-size: 18px;
+    color: #000;
+}
+body{
+    width: 100%;
+    margin: 0 auto;
+}
+.wrap{
+    height: 100vh;
+}
+.pagew {
+    width: 80vw;
+    margin: 0 auto;
+}
+/* quiz */
+#nav {
+    border-bottom: 1px solid #000;
+}
+.logo {
+    font-family: 'Happiness-Sans-Bold';
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    display: block;
+}
+.quiz {}
+.timer-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+.timer {
+    font-size: 1.5rem;
+    font-family: 'EF_MACHO';
+}
