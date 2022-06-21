@@ -44,6 +44,10 @@
     </style>
 
     <script>
+
+        {% if msg %}
+        alert("{{ msg }}")
+        {% endif %}
         function sign_up() {
             let id = $("#input-id").val()
             let nickname = $("#input-nickname").val()
@@ -101,7 +105,7 @@
                 },
                 success: function (response) {
                     alert("회원가입을 축하드립니다!")
-                    location.href = '/login'
+                    window.location.replace("/signup")
                 }
             });
 
@@ -194,7 +198,11 @@
             $("#sign-up-box").toggleClass("is-hidden")
             $("#div-sign-in-or-up").toggleClass("is-hidden")
             $("#btn-check-dup").toggleClass("is-hidden")
+            $("#btn-check-dup-nickname").toggleClass("is-hidden")
             $("#help-id").toggleClass("is-hidden")
+            $("#nickname_field").toggleClass("is-hidden")
+            $("#input-password2").toggleClass("is-hidden")
+            $("#help-nickname").toggleClass("is-hidden")
             $("#help-password").toggleClass("is-hidden")
             $("#help-password2").toggleClass("is-hidden")
         }
@@ -251,8 +259,8 @@
                                 <input id="input-id" class="input" type="text" placeholder="아이디">
                                 <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
-                            <div id="btn-check-dup" class="control">
-                                <button class="button is-sparta is-hidden" onclick="check_ID()">중복확인</button>
+                            <div id="btn-check-dup" class="control is-hidden">
+                                <button class="button is-sparta" onclick="check_ID()">중복확인</button>
                             </div>
 
 
@@ -261,12 +269,12 @@
                         <p id="help-id-login" class="help is-danger"></p>
 
                         <div class="field has-addons">
-                            <div class="control has-icons-left" style="width:100%">
+                            <div id="nickname_field" class="control has-icons-left is-hidden" style="width:100%">
                                 <input id="input-nickname" class="input" type="text" placeholder="닉네임">
                                 <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
-                            <div id="btn-check-dup" class="control">
-                                <button class="button is-sparta" onclick="check_nickname()">중복확인</button>
+                            <div id="btn-check-dup-nickname" class="control is-hidden">
+                                <button class="button is-sparta"  onclick="check_nickname()">중복확인</button>
                             </div>
 
                         </div>
@@ -301,11 +309,11 @@
                     </div>
 
 
-                    <div id="sign-up-box">
+                    <div id="sign-up-box" class="is-hidden">
                         <div class="mb-5">
                             <div class="field">
                                 <div class="control has-icons-left" style="width:100%">
-                                    <input id="input-password2" class="input" type="password"
+                                    <input id="input-password2" class="input is-hidden" type="password"
                                            placeholder="비밀번호 재입력">
                                     <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
                                 </div>
@@ -317,7 +325,7 @@
                             <button class="level-item button is-sparta" onclick="sign_up()">
                                 회원가입
                             </button>
-                            <button class="level-item button is-sparta is-outlined">
+                            <button class="level-item button is-sparta is-outlined" onclick="toggle_sign_up()">
                                 돌아가기
                             </button>
 

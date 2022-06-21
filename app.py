@@ -1,9 +1,11 @@
 import json
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify , redirect, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import jwt
 import os
 import hashlib
+from datetime import datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
 
@@ -17,20 +19,26 @@ PW = os.environ.get('DB_PW')
 client = MongoClient("mongodb+srv://"+ID+":"+PW+"@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
 db = client.joblessescape
 
+SECRET_KEY = 'SPARTA'
+
 
 @app.route('/', methods=["GET"])
 def home():
-    return render_template('index.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+
+        return render_template('index.html')
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("signup", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
 
 
 @app.route('/signup',methods=["GET"])
 def signup():
-    return render_template('signup_page.html')
-
-
-@app.route('/login',methods=["GET"])
-def login():
-    return render_template('login.html')
+    msg = request.args.get("msg")
+    return render_template('signup_page.html', msg=msg)
 
 
 @app.route('/sign_up/check_ID', methods=['POST'])
@@ -60,6 +68,29 @@ def signup_save():
     }
     db.users.insert_one(doc)
     return jsonify({'result': 'success'})
+
+
+@app.route('/sign_in', methods=['POST'])
+def sign_in():
+    # 로그인
+    id_receive = request.form['id_give']
+    password_receive = request.form['password_give']
+
+    pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    result = db.users.find_one({'id': id_receive, 'password': pw_hash})
+
+    if result is not None:
+        payload = {
+            'id': id_receive,
+            'exp': datetime.utcnow() + timedelta(seconds=5)  # 로그인 24시간 유지
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+        return jsonify({'result': 'success', 'token': token})
+    # 찾지 못하면
+    else:
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+
 
 
 if __name__ == '__main__':
