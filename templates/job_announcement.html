@@ -10,11 +10,23 @@
     <style>
 
         .box {
-            margin: 50px;
+            margin: 30px 50px;
         }
+
+        .speciality_button{
+            margin: 30px 50px;
+        }
+
+
     </style>
 
     <script>
+        function toggle_show_list(){
+            $("#react_box").toggleclass("is-hidden")
+            $("#spring_box").toggleclass("is-hidden")
+
+
+        }
 
 
     </script>
@@ -25,6 +37,12 @@
 
 <body>
 
+<div class="speciality_button">
+    <button class="button is-info is-outlined">react</button>
+    <button class="button is-info is-outlined">spring</button>
+</div>
+
+
 
 {% for row in rows_react %}
     {% set companyname = row["company_name"] %}
@@ -32,12 +50,35 @@
     {% set job = row["job"] %}
     {% set info = row["info"] %}
     {% set date = row["date"] %}
-    <div class="box">
+    <div class="box" id="react_box">
         <article class="media">
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small> <small>{{ }}</small>
+                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small>
+                        <small>{{ job }}</small>
+                        <br>
+                        {{ info }} <small>{{ date }}</small>
+                    </p>
+                </div>
+
+            </div>
+        </article>
+    </div>
+{% endfor %}
+
+{% for row in rows_spring %}
+    {% set companyname = row["company_name"] %}
+    {% set exp = row["exp"] %}
+    {% set job = row["job"] %}
+    {% set info = row["info"] %}
+    {% set date = row["date"] %}
+    <div class="box is-hidden" id="spring_box">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small>
                         <small>{{ job }}</small>
                         <br>
                         {{ info }} <small>{{ date }}</small>
