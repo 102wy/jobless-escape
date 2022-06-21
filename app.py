@@ -28,6 +28,9 @@ def signup():
     return render_template('signup_page.html')
 
 
+@app.route('/login',methods=["GET"])
+def login():
+    return render_template('login.html')
 
 
 @app.route('/sign_up/check_ID', methods=['POST'])
