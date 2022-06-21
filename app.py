@@ -22,7 +22,7 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/',methods=["GET"])
+@app.route('/signup',methods=["GET"])
 def signup():
     return render_template('signup_page.html')
 
