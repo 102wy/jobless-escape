@@ -1,0 +1,9 @@
+diff a/app.py b/app.py	(rejected hunks)
+@@ -12,6 +12,7 @@
+ load_dotenv()
+ ID = os.environ.get('DB_ID')
+ PW = os.environ.get('DB_PW')
++
+ # DB
+ client = MongoClient("mongodb+srv://"+ID+":"+PW+"@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
+ db = client.joblessescape
