@@ -6,20 +6,74 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/static/js/quiz.js"></script>
 </head>
+<script>
+    window.onload = function (){
+        const quizAnswer = document.querySelector('.quiz-input');
+        quizAnswer.addEventListener('keypress',(e)=>{
+            if(e.key === 'Enter'){
+                let quizValue = quizAnswer.value;
+                console.log(quizValue);
+                let dbAnswer = {{ quiz_answer }};
+                let dbAnswer2 = dbAnswer.toString();
+                console.log(dbAnswer2)
+                if (quizAnswer == dbAnswer2){
+                    console.log('성공입니다');
+                }else {
+                    {#let index = {{ quiz_index }};#}
+                    {#let index2 = index +1 ;#}
+                    {#location.href=`/quiz/0${index2}`#}
+                    console.log('실패입니다');
+                }
+            }
+            quizAnswer.value = '';
+        });
+    }
+    let downtime = 60;
+    const countDown = () => {
+        setInterval(()=>{
+            downtime --;
+            if(downtime <= 0){
+                document.querySelector('.quiz-modal').style.display = 'flex';
+                downtime = 0;
+            }
+            if(downtime < 10){
+                document.querySelector('.timer').innerHTML = `00:0${downtime}`
+            }else{
+                document.querySelector('.timer').innerHTML = `00:${downtime}`
+            }
+        },1000);
+    }
+    countDown();
+</script>
 <body>
     <div class="wrap">
         <nav id="nav">
             <div class="pagew">
-                <a href="#" class="logo">백수탈출</a>
+                <a href="/" class="logo">백수탈출</a>
             </div>
         </nav>
-        <section id="quiz">
+        <section class="quiz" style="background-image: url('../static/img/quiz_background{{ quiz_index }}.png')">
             <div class="pagew">
                 <div class="timer-wrap">
-                    <p class="timer">00:00:00</p>
+                    <p class="timer">00:60</p>
                 </div>
+                <div class="quiz-box">
+                    <h3 class="quiz-title">Quiz {{ quiz_index }}</h3>
+                    <p class="question">{{ quiz_content }}</p>
+                    <input type="text" class="quiz-input" placeholder="정답을 입력하세요"/>
+                </div>
+
             </div>
         </section>
+    </div>
+    <div class="quiz-modal">
+        <div class="quiz-modal-cont">
+            <p>취업에 실패하셨습니다.</p>
+            <div class="quiz-modal-button">
+                <button onclick="location.href='/quiz/01'">재도전</button>
+                <button onclick="location.href='/'">나가기</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
