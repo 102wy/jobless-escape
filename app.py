@@ -27,7 +27,8 @@ soup_spring = BeautifulSoup(spring_data.text, 'html.parser')
 job_announcements_react = soup_react.select('#content > div > div > div.cnt-list-wrap > div > div.recruit-info > div.lists > div > div.list-default > ul > li')
 job_announcements_spring = soup_spring.select('#content > div > div > div.cnt-list-wrap > div > div.recruit-info > div.lists > div > div.list-default > ul > li')
 
-
+db.job_announcement_react.drop()
+db.job_announcement_spring.drop()
 
 for job_announcement_react in job_announcements_react:
     company_name = job_announcement_react.select_one('div > div.post-list-corp > a').text
@@ -65,15 +66,6 @@ for job_announcement_spring in job_announcements_spring:
         'date': date
     }
     db.job_announcement_spring.insert_one(doc)
-
-    
-
-
-
-
-
-
-
 
 
 @app.route('/', methods=["GET"])
