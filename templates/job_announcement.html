@@ -8,87 +8,199 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
     <style>
+        @import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
+        @import url('https://webfontworld.github.io/tmon/Tmon.css');
+        @import url('https://webfontworld.github.io/Noto/NotoSansKR.css');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .navbar {
+            background-color: #3283f9;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 0;
+            font-family: 'Jalnan';
+        }
+
+        .navbar a {
+            color: white;
+            font-size: 38px;
+
+        }
+
+
+
+        .right-container button {
+            background-color: transparent;
+            margin: 0 40px;
+            font-family: 'Jalnan';
+            font-size: 18px;
+            color: whitesmoke;
+        }
+
+        .right-container button:hover {
+            color: black;
+        }
+
 
         .box {
             margin: 30px 50px;
         }
 
-        .speciality_button{
+        .speciality_button {
             margin: 30px 50px;
+        }
+
+        .is-hidden {
+            display: none !important;
         }
 
 
     </style>
 
     <script>
-        function toggle_show_list(){
-            $("#react_box").toggleclass("is-hidden")
-            $("#spring_box").toggleclass("is-hidden")
-
-
+        function toggle_show_list() {
+            $("#react_box").toggleClass("is-hidden")
+            $("#spring_box").toggleClass("is-hidden")
         }
-
 
     </script>
 
 
 </head>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
 <body>
-
+<nav class="navbar">
+    <a class="title">백수 탈출</a>
+    <div class="right-container">
+        <button class="login-btn">로그인</button>
+        <button class="signUp-btn">회원가입</button>
+        <button class="ranking-btn">랭킹</button>
+    </div>
+</nav>
 <div class="speciality_button">
-    <button class="button is-info is-outlined">react</button>
-    <button class="button is-info is-outlined">spring</button>
+    <button class="button is-info is-outlined" onclick='toggle_show_list()'>react</button>
+    <button class="button is-info is-outlined" onclick="toggle_show_list()">spring</button>
 </div>
 
+<div>
+    <div id="react_box">
+        {% for row in rows_react %}
+            {% set companyname = row["company_name"] %}
+            {% set exp = row["exp"] %}
+            {% set job = row["job"] %}
+            {% set info = row["info"] %}
+            {% set date = row["date"] %}
+            <div class="box" >
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{ companyname }}</strong> <small>{{ exp }}</small>
+                                <small>{{ job }}</small>
+                                <br>
+                                {{ info }} <small>{{ date }}</small>
+                            </p>
+                        </div>
 
-
-{% for row in rows_react %}
-    {% set companyname = row["company_name"] %}
-    {% set exp = row["exp"] %}
-    {% set job = row["job"] %}
-    {% set info = row["info"] %}
-    {% set date = row["date"] %}
-    <div class="box" id="react_box">
-        <article class="media">
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small>
-                        <small>{{ job }}</small>
-                        <br>
-                        {{ info }} <small>{{ date }}</small>
-                    </p>
-                </div>
-
+                    </div>
+                </article>
             </div>
-        </article>
+        {% endfor %}
     </div>
-{% endfor %}
+   <div id="spring_box" class="is-hidden">
+    {% for row in rows_spring %}
+        {% set companyname = row["company_name"] %}
+        {% set exp = row["exp"] %}
+        {% set job = row["job"] %}
+        {% set info = row["info"] %}
+        {% set date = row["date"] %}
+        <div class="box" >
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{ companyname }}</strong> <small>{{ exp }}</small>
+                            <small>{{ job }}</small>
+                            <br>
+                            {{ info }} <small>{{ date }}</small>
+                        </p>
+                    </div>
 
-{% for row in rows_spring %}
-    {% set companyname = row["company_name"] %}
-    {% set exp = row["exp"] %}
-    {% set job = row["job"] %}
-    {% set info = row["info"] %}
-    {% set date = row["date"] %}
-    <div class="box is-hidden" id="spring_box">
-        <article class="media">
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small>
-                        <small>{{ job }}</small>
-                        <br>
-                        {{ info }} <small>{{ date }}</small>
-                    </p>
                 </div>
-
-            </div>
-        </article>
+            </article>
+        </div>
+    {% endfor %}
     </div>
-{% endfor %}
+</div>
+
+{#{% for row in rows_react %}#}
+{#    {% set companyname = row["company_name"] %}#}
+{#    {% set exp = row["exp"] %}#}
+{#    {% set job = row["job"] %}#}
+{#    {% set info = row["info"] %}#}
+{#    {% set date = row["date"] %}#}
+{#    <div class="box" id="react_box">#}
+{#        <article class="media">#}
+{#            <div class="media-content">#}
+{#                <div class="content">#}
+{#                    <p>#}
+{#                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small>#}
+{#                        <small>{{ job }}</small>#}
+{#                        <br>#}
+{#                        {{ info }} <small>{{ date }}</small>#}
+{#                    </p>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </article>#}
+{#    </div>#}
+{#{% endfor %}#}
+
+{#{% for row in rows_spring %}#}
+{#    {% set companyname = row["company_name"] %}#}
+{#    {% set exp = row["exp"] %}#}
+{#    {% set job = row["job"] %}#}
+{#    {% set info = row["info"] %}#}
+{#    {% set date = row["date"] %}#}
+{#    <div class="box" id="spring_box">#}
+{#        <article class="media">#}
+{#            <div class="media-content">#}
+{#                <div class="content">#}
+{#                    <p>#}
+{#                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small>#}
+{#                        <small>{{ job }}</small>#}
+{#                        <br>#}
+{#                        {{ info }} <small>{{ date }}</small>#}
+{#                    </p>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </article>#}
+{#    </div>#}
+{#{% endfor %}#}
 
 
 </body>
