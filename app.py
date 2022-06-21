@@ -16,9 +16,16 @@ PW = os.environ.get('DB_PW')
 client = MongoClient("mongodb+srv://"+ID+":"+PW+"@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
 db = client.joblessescape
 
+
 @app.route('/', methods=["GET"])
 def home():
     return render_template('index.html')
+
+
+@app.route('/job_announcement', methods=["GET"])
+def job_announcement():
+    return render_template('job_announcement.html')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
