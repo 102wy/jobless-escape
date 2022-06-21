@@ -5,6 +5,43 @@
     <title>회원가입</title>
     <!-- Bulma CSS 링크 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <style>
+
+        .section {
+            padding: 1rem 1.5rem;
+            max-width: 750px;
+            margin: auto;
+        }
+
+                .is-sparta {
+            color: #34a9e8 !important;
+        }
+
+        .button.is-sparta {
+            background-color: #34a9e8;
+            border-color: transparent;
+            color: #fff !important;
+        }
+
+        .button.is-sparta.is-outlined {
+            background-color: transparent;
+            border-color: #34a9e8;
+            color: #34a9e8 !important;
+        }
+
+        .help {
+            color: gray;
+        }
+
+    </style>
 </head>
 <body>
 <section class="section">
@@ -45,7 +82,7 @@
                                 <input id="input-password" class="input" type="password" placeholder="비밀번호">
                                 <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
                             </div>
-                            <p id="help-password" class="help">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도 사용 +
+                            <p id="help-password" class="help">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도 사용
                                 가능합니다.</p>
                         </div>
 
@@ -72,7 +109,7 @@
                             <button class="level-item button is-sparta is-outlined">
                                 돌아가기
                             </button>
-                            +
+
                         </nav>
                     </div>
 
