@@ -83,7 +83,13 @@ def home():
 
 @app.route('/job_announcement', methods=["GET"])
 def job_announcement():
-    return render_template('job_announcement.html')
+    job_announcement_react_list = list(db.job_announcement_react.find({}, {'_id': False}))
+    job_announcement_spring_list = list(db.job_announcement_spring.find({}, {'_id': False}))
+
+    return render_template('job_announcement.html',
+                           rows_react=job_announcement_react_list, rows_spring= job_announcement_spring_list)
+
+
 
 
 if __name__ == '__main__':
