@@ -13,16 +13,13 @@
             if(e.key === 'Enter'){
                 let quizValue = quizAnswer.value;
                 console.log(quizValue);
-                let dbAnswer = {{ quiz_answer }};
-                let dbAnswer2 = dbAnswer.toString();
-                console.log(dbAnswer2)
-                if (quizAnswer == dbAnswer2){
+                let index = {{ quiz_index }};
+                let index2 = index +1 ;
+                if (quizValue == `{{ quiz_answer }}`){
                     console.log('성공입니다');
+                    location.href=`/quiz/0${index2}`
                 }else {
-                    {#let index = {{ quiz_index }};#}
-                    {#let index2 = index +1 ;#}
-                    {#location.href=`/quiz/0${index2}`#}
-                    console.log('실패입니다');
+                    document.querySelector('.quiz-modal').style.display = 'flex';
                 }
             }
             quizAnswer.value = '';

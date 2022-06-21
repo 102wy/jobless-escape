@@ -22,12 +22,15 @@ def home():
 
 @app.route('/quiz/<index>', methods=["GET"])
 def quiz(index):
+    print(index)
     quiz_list = list(db.quiz.find({}, {'_id': False}))
     quiz_index = db.quiz.find_one({'id': index})['id']
     quiz_content = db.quiz.find_one({'id': index})['quiz']
     quiz_answer = db.quiz.find_one({'id': index})['quiz_answer']
+    a = str(quiz_answer)
+    print(a)
 
-    return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content, quiz_answer=quiz_answer)
+    return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content, quiz_answer=a)
 
 @app.route('/quiz/<index>', methods=["POST"])
 def checking(index):
