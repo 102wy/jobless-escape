@@ -5,28 +5,50 @@
     <title>취업공고</title>
 
     <!-- Bulma CSS 링크 -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <style>
+
+        .box {
+            margin: 50px;
+        }
+    </style>
+
+    <script>
 
 
+    </script>
 
+
+</head>
 
 
 <body>
 
-<div class="box">
-  <article class="media">
-    <div class="media-content">
-      <div class="content">
-        <p>
-          <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-          <br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-        </p>
-      </div>
 
+{% for row in rows_react %}
+    {% set companyname = row["company_name"] %}
+    {% set exp = row["exp"] %}
+    {% set job = row["job"] %}
+    {% set info = row["info"] %}
+    {% set date = row["date"] %}
+    <div class="box">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ companyname }}</strong> <small>{{ exp }}</small> <small>{{ }}</small>
+                        <small>{{ job }}</small>
+                        <br>
+                        {{ info }} <small>{{ date }}</small>
+                    </p>
+                </div>
+
+            </div>
+        </article>
     </div>
-  </article>
-</div>
+{% endfor %}
+
 
 </body>
 </html>
