@@ -82,7 +82,7 @@ def sign_in():
     if result is not None:
         payload = {
             'id': id_receive,
-            'exp': datetime.utcnow() + timedelta(seconds=5)  # 로그인 24시간 유지
+            'exp': datetime.utcnow() + timedelta(seconds=3600)  # 로그인 24시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 

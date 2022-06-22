@@ -13,7 +13,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
+
     <style>
+        @import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
+        @import url('https://webfontworld.github.io/tmon/Tmon.css');
+        @import url('https://webfontworld.github.io/Noto/NotoSansKR.css');
+
+        .navbar {
+            background-color: #3283f9;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 0;
+        }
 
         .section {
             padding: 1rem 1.5rem;
@@ -46,7 +58,7 @@
     <script>
 
         {% if msg %}
-        alert("{{ msg }}")
+            alert("{{ msg }}")
         {% endif %}
         function sign_up() {
             let id = $("#input-id").val()
@@ -194,7 +206,7 @@
             });
         }
 
-        function toggle_sign_up(){
+        function toggle_sign_up() {
             $("#sign-up-box").toggleClass("is-hidden")
             $("#div-sign-in-or-up").toggleClass("is-hidden")
             $("#btn-check-dup").toggleClass("is-hidden")
@@ -207,7 +219,7 @@
             $("#help-password2").toggleClass("is-hidden")
         }
 
-        function sign_in(){
+        function sign_in() {
             let id = $("#input-id").val()
             let password = $("#input-password").val()
 
@@ -248,6 +260,14 @@
     </script>
 </head>
 <body>
+<nav class="navbar">
+    <a class="title">백수 탈출</a>
+    <div class="right-container">
+        <button class="login-btn" onclick="location.href='/signup'">로그인</button>
+        <button class="signUp-btn">회원가입</button>
+        <button class="ranking-btn">랭킹</button>
+    </div>
+</nav>
 <section class="section">
     <div class="container">
         <div class="box" style="max-width: 500px;margin:auto">
@@ -274,7 +294,7 @@
                                 <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
                             <div id="btn-check-dup-nickname" class="control is-hidden">
-                                <button class="button is-sparta"  onclick="check_nickname()">중복확인</button>
+                                <button class="button is-sparta" onclick="check_nickname()">중복확인</button>
                             </div>
 
                         </div>
@@ -286,7 +306,8 @@
                                 <input id="input-password" class="input" type="password" placeholder="비밀번호">
                                 <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
                             </div>
-                            <p id="help-password" class="help is-hidden">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도 사용
+                            <p id="help-password" class="help is-hidden">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도
+                                사용
                                 가능합니다.</p>
                         </div>
                     </div>
