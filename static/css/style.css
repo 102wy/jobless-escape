@@ -30,7 +30,9 @@ body {
     width: 100%;
     margin: 0 auto;
 }
-
+a {
+    cursor: pointer;
+}
 .wrap {
     height: 100vh;
 }
@@ -132,7 +134,7 @@ body {
     cursor: pointer;
 }
 
-.start a {
+.start p {
     color: white;
 }
 
