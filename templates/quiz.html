@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?ver=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/static/js/quiz.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -37,7 +37,7 @@
                         review_give: ""
                     },
                     success: function (response) {
-                        window.location.href = "/ranking/" + sessionStorage.getItem('totaltime');
+                        window.location.href = "/ranking";
                     }
                 });
                 {#  리뷰 클릭 시  #}
@@ -69,8 +69,8 @@
                                         review_give: getReview
                                     },
                                     success: function (response) {
-                                        window.location.href = "/rankingAndReview/" + sessionStorage.getItem('totaltime')
-                                            + "/" + getReview;
+                                        window.location.href = "/ranking"
+
                                     }
                                 });
 

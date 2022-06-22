@@ -94,12 +94,6 @@ def signup():
     return render_template('signup_page.html', msg=msg)
 
 
-@app.route('/ranking', methods=["GET"])
-def ranking():
-    ranking_list = list(db.ranking.find({}, {'_id': False}))
-    return render_template('ranking.html', ranking_list=ranking_list)
-
-
 @app.route('/sign_up/check_ID', methods=['POST'])
 def check_ID():
     id_receive = request.form['id_give']
@@ -154,16 +148,23 @@ def sign_in():
 
 @app.route('/quiz/<index>', methods=["GET"])
 def quiz(index):
-    print(index)
-    quiz_list = list(db.quiz.find({}, {'_id': False}))
-    quiz_index = db.quiz.find_one({'id': index})['id']
-    quiz_content = db.quiz.find_one({'id': index})['quiz']
-    quiz_answer = db.quiz.find_one({'id': index})['quiz_answer']
-    a = str(quiz_answer)
-    print(a)
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        print(index)
+        quiz_list = list(db.quiz.find({}, {'_id': False}))
+        quiz_index = db.quiz.find_one({'id': index})['id']
+        quiz_content = db.quiz.find_one({'id': index})['quiz']
+        quiz_answer = db.quiz.find_one({'id': index})['quiz_answer']
+        a = str(quiz_answer)
+        print(a)
 
-    return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content,
-                           quiz_answer=a)
+        return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content,
+                               quiz_answer=a)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("signup", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
 
 
 @app.route('/quiz/savetime', methods=['POST'])
@@ -177,7 +178,7 @@ def quiz_savetime():
 
     doc = {
         "nickname": user["nickname"],
-        "totaltime": time_receive,
+        "totaltime": int(time_receive),
         "review": review_receive
     }
     db.ranking.insert_one(doc)
@@ -186,21 +187,35 @@ def quiz_savetime():
 
 @app.route('/job_announcement', methods=["GET"])
 def job_announcement():
-    job_announcement_react_list = list(db.job_announcement_react.find({}, {'_id': False}))
-    job_announcement_spring_list = list(db.job_announcement_spring.find({}, {'_id': False}))
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        job_announcement_react_list = list(db.job_announcement_react.find({}, {'_id': False}))
+        job_announcement_spring_list = list(db.job_announcement_spring.find({}, {'_id': False}))
 
-    return render_template('job_announcement.html',
-                           rows_react=job_announcement_react_list, rows_spring=job_announcement_spring_list)
+        return render_template('job_announcement.html',
+                               rows_react=job_announcement_react_list, rows_spring=job_announcement_spring_list)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("signup", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
 
 
-@app.route('/ranking/<totalTime>', methods=["GET"])
-def rank(totalTime):
-    return render_template('ranking.html', totalTime=totalTime)
+@app.route('/ranking', methods=["GET"])
+def ranking():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
-
-@app.route('/rankingAndReview/<totalTime>/<review>', methods=["GET"])
-def rankAndReview(totalTime, review):
-    return render_template('ranking.html', totalTime=totalTime, review=review)
+        rank_list = list(db.ranking.find({}, {'_id': False}))
+        user_list = list(db.users.find({}, {'_id': False}))
+        sort_list = sorted(rank_list, key=lambda time: (time['totaltime']))
+        msg = request.args.get("msg")
+        return render_template('ranking.html', msg=msg, rank_list=sort_list, user_list=user_list)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("signup", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
 
 
 if __name__ == '__main__':
