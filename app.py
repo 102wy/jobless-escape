@@ -40,6 +40,10 @@ def signup():
     msg = request.args.get("msg")
     return render_template('signup_page.html', msg=msg)
 
+@app.route('/ranking',methods=["GET"])
+def ranking():
+    return render_template('signup_page.html')
+
 
 @app.route('/sign_up/check_ID', methods=['POST'])
 def check_ID():

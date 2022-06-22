@@ -139,3 +139,58 @@ body{
         margin: 0.2rem;
     }
 }
+
+#ranking {
+    margin-top: 2rem;
+    text-align: center;
+}
+#ranking > .pagew {
+    display: flex;
+    flex-display: row;
+    justify-content: space-around;
+}
+.ranking-box {
+    width: 50%;
+}
+.ranking-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.ranking-menu > li {
+    width: 40%;
+    background-color: #3283f9;
+    padding: 1rem;
+    color: #fff;
+}
+.ranking-menu > li:first-child {
+    width: 20%;
+}
+.ranking-cont {
+
+}
+.ranking-cont > li{
+    background-color: #e5efff;
+}
+.ranking-cont > li:nth-child(2n) {
+    background-color: #b6d0ff;
+}
+.ranking-user-cont {
+    display: flex;
+    flex-display: row;
+    justify-content: space-around;
+}
+.ranking-user-cont  li {
+    width: 40%;
+    padding: 1rem;
+}
+.ranking-user-cont  li:first-child {
+    width: 20%;
+}
+.ranking-review-modal {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e5efff;
+}
