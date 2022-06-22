@@ -1,5 +1,5 @@
-
 @import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
+
 @font-face {
     font-family: 'EF_MACHO';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/EF_MACHO.woff2') format('woff2');
@@ -7,7 +7,7 @@
     font-style: normal;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,22 +18,27 @@
     border: none;
     font-family: 'Jalnan';
 }
-body{
+
+body {
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
 }
-.wrap{
+
+.wrap {
     height: 100vh;
 }
+
 .pagew {
     width: 80vw;
     margin: 0 auto;
 }
+
 /* quiz */
 #nav {
     background-color: #3283f9;
 }
+
 .logo {
     font-size: 2rem;
     padding: 1rem 2rem;
@@ -47,6 +52,7 @@ body{
     width: 100%;
     height: 100vh;
 }
+
 .quiz-input {
     border: 1px solid #000;
     width: 30%;
@@ -54,37 +60,45 @@ body{
     margin: 1rem 0;
     text-align: center;
 }
+
 .timer-wrap {
     display: flex;
     justify-content: flex-end;
     padding: 1rem 0;
 }
+
 .timer {
     font-size: 1.5rem;
     font-family: 'EF_MACHO';
 }
+
 .quiz-box {
     width: 100%;
     height: 300px;
     border: 1px solid #333;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 .quiz-title {
     font-size: 2rem;
     padding: 1rem;
 }
-.question {}
-.answer {}
 
-.quiz-modal{
+.question {
+}
+
+.answer {
+}
+
+.quiz-modal {
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,6 +109,7 @@ body{
     text-align: center;
     display: none;
 }
+
 .quiz-modal-cont {
     width: 50vw;
     height: 50vh;
@@ -105,16 +120,19 @@ body{
     flex-direction: column;
     position: relative;
 }
+
 .quiz-modal-cont p {
     font-size: 3rem;
     cursor: default;
 }
+
 .quiz-modal-button {
     display: flex;
     flex-direction: row;
     position: absolute;
     bottom: 10%;
 }
+
 .quiz-modal-button button {
     margin: 1rem;
     font-size: 1.2rem;
@@ -123,6 +141,7 @@ body{
     color: #fff;
     cursor: pointer;
 }
+
 .quiz-modal-button button:hover {
     background-color: #1c55ad;
 }
@@ -131,9 +150,11 @@ body{
     .quiz-modal {
         width: 800px;
     }
+
     .quiz-modal-cont p {
         font-size: 2rem;
     }
+
     .quiz-modal-button button {
         padding: 1rem;
         margin: 0.2rem;
@@ -144,53 +165,79 @@ body{
     margin-top: 2rem;
     text-align: center;
 }
+
 #ranking > .pagew {
     display: flex;
     flex-display: row;
     justify-content: space-around;
 }
+
 .ranking-box {
     width: 50%;
 }
+
 .ranking-menu {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
+
 .ranking-menu > li {
     width: 40%;
     background-color: #3283f9;
     padding: 1rem;
     color: #fff;
 }
+
 .ranking-menu > li:first-child {
     width: 20%;
 }
+
 .ranking-cont {
 
 }
-.ranking-cont > li{
+
+.ranking-cont > li {
     background-color: #e5efff;
 }
+
 .ranking-cont > li:nth-child(2n) {
     background-color: #b6d0ff;
 }
+
 .ranking-user-cont {
     display: flex;
     flex-display: row;
     justify-content: space-around;
 }
-.ranking-user-cont  li {
+
+.ranking-user-cont li {
     width: 40%;
     padding: 1rem;
 }
-.ranking-user-cont  li:first-child {
+
+.ranking-user-cont li:first-child {
     width: 20%;
 }
+
 .ranking-review-modal {
     width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #e5efff;
+}
+
+.navbar {
+    background-color: #3283f9;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.navbar a {
+    color: white;
+    font-size: 38px;
+
 }

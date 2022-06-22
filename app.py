@@ -40,9 +40,11 @@ def signup():
     msg = request.args.get("msg")
     return render_template('signup_page.html', msg=msg)
 
+
 @app.route('/ranking',methods=["GET"])
 def ranking():
-    return render_template('signup_page.html')
+    ranking_list = list(db.ranking.find({},{'_id':False}))
+    return render_template('ranking.html', ranking_list=ranking_list)
 
 
 @app.route('/sign_up/check_ID', methods=['POST'])
@@ -116,11 +118,12 @@ def quiz_savetime():
     cookie_receive = request.form['cookie_give']
     print(cookie_receive)
     id = jwt.decode(cookie_receive,SECRET_KEY , algorithms='HS256')["id"]
-    print(id)
+    user = db.users.find_one({'id':id})
+
 
 
     doc = {
-        "id":id,
+        "nickname":user["nickname"],
         "totaltime": time_receive
 
     }
