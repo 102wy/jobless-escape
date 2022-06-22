@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/quiz.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<script>
+
+    function savetime() {
+        $.ajax({
+            type: "POST",
+            url: "/quiz/savetime",
+            data: {
+                time_give: sessionStorage.getItem('totaltime'),
+                cookie_give: document.cookie.split("=")[1]
+            },
+            success: function (response) {
+                sessionStorage.clear()
+                Swal.fire({
+                    title: '수고하셨습니다!',
+                    text: "랭킹 확인하러 가볼까요?",
+                    {#icon: 'success',#}
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '랭킹보러가기',
+                    {#imageUrl: 'https://media.istockphoto.com/vectors/emoji-clap-h…nt-cartoon-applause-icon-clap-vector-id1286696247',#}
+                    imageUrl: 'https://www.nicepng.com/png/detail/393-3930758_clap-clap-hands-emoji-png.png',
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: 'Custom image'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/";
+                        {#alert(sessionStorage.getItem('totaltime')); --- 토탈 타임갖고 랭킹으로 이동하면 됨#}
+                    }
+                })
+
+
+            }
+        });
+
+    }
+
+
+    window.onload = function () {
+        let quizInput = document.querySelector('.quiz-input');
+        quizInput.addEventListener('keypress', function (e) {
+            let quizValue = quizInput.value;
+            if (e.key === 'Enter') {
+                let index = {{ quiz_index }};
+                let indexPlus = index + 1;
+                if (quizValue == `{{ quiz_answer }}`) {
+                    let record = 60 - downtime;
+                    let quizRecord = sessionStorage.getItem('totaltime');
+                    let totaltime = Number(quizRecord) + record;
+                    sessionStorage.setItem('totaltime', totaltime);
+                    if (`${index}` < 8) {
+                        location.href = `/quiz/0${indexPlus}`
+                    } else {
+                        savetime()
+
+                    }
+                } else {
+                    sessionStorage.clear();
+                    document.querySelector('.quiz-modal').style.display = 'flex';
+                }
+                quizInput = '';
+            }
+        });
+    }
+    let downtime = 60;
+    const countDown = () => {
+        setInterval(() => {
+            downtime--;
+            if (downtime <= 0) {
+                document.querySelector('.quiz-modal').style.display = 'flex';
+                downtime = 0;
+            }
+            if (downtime < 10) {
+                document.querySelector('.timer').innerHTML = `00:0${downtime}`
+            } else {
+                document.querySelector('.timer').innerHTML = `00:${downtime}`
+            }
+        }, 1000);
+    }
+    countDown();
+
+</script>
+<body>
+<div class="wrap">
+    <nav id="nav">
+        <div class="pagew">
+            <a href="/" class="logo">백수탈출</a>
+        </div>
+    </nav>
+    <section class="quiz" style="background-image: url('../static/img/quiz_background{{ quiz_index }}.png')">
+        <div class="pagew">
+            <div class="timer-wrap">
+                <p class="timer">00:60</p>
+            </div>
+            <div class="quiz-box">
+                <h3 class="quiz-title">Quiz {{ quiz_index }}</h3>
+                <p class="question">{{ quiz_content }}</p>
+                <input type="text" class="quiz-input" placeholder="정답을 입력하세요"/>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="quiz-modal">
+    <div class="quiz-modal-cont">
+        <p>취업에 실패하셨습니다.</p>
+        <div class="quiz-modal-button">
+            <button onclick="location.href='/quiz/01'">재도전</button>
+            <button onclick="location.href='/'">나가기</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

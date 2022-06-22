@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <!-- Bulma CSS 링크 -->
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!--    CSS 링크-->
+    <link rel="stylesheet" href="/static/css/signup.style.css" />
 
     <!-- Font Awesome CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -14,46 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
 
-    <style>
-        @import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
-        @import url('https://webfontworld.github.io/tmon/Tmon.css');
-        @import url('https://webfontworld.github.io/Noto/NotoSansKR.css');
-
-        .navbar {
-            background-color: #3283f9;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .section {
-            padding: 1rem 1.5rem;
-            max-width: 750px;
-            margin: auto;
-        }
-
-        .is-sparta {
-            color: #3283f9 !important;
-        }
-
-        .button.is-sparta {
-            background-color: #3283f9;
-            border-color: transparent;
-            color: #fff !important;
-        }
-
-        .button.is-sparta.is-outlined {
-            background-color: transparent;
-            border-color: #3283f9;
-            color: #3283f9 !important;
-        }
-
-        .help {
-            color: gray;
-        }
-
-    </style>
 
     <script>
 
@@ -260,14 +223,10 @@
     </script>
 </head>
 <body>
-<nav class="navbar">
-    <a class="title">백수 탈출</a>
-    <div class="right-container">
-        <button class="login-btn" onclick="location.href='/signup'">로그인</button>
-        <button class="signUp-btn">회원가입</button>
-        <button class="ranking-btn">랭킹</button>
-    </div>
-</nav>
+ <nav class="navbar">
+      <a class="title">백수 탈출</a>
+
+    </nav>
 <section class="section">
     <div class="container">
         <div class="box" style="max-width: 500px;margin:auto">
@@ -322,7 +281,6 @@
                         <hr>
                         <h4 class="mb-3">아직 회원이 아니라면</h4>
                         <nav class="level is-mobile">
-
                             <button class="level-item button is-sparta is-outlined" onclick="toggle_sign_up()">
                                 회원가입하기
                             </button>

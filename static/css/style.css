@@ -1,0 +1,141 @@
+
+@import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
+@font-face {
+    font-family: 'EF_MACHO';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/EF_MACHO.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-size: 18px;
+    color: #000;
+    border: none;
+    font-family: 'Jalnan';
+}
+body{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.wrap{
+    height: 100vh;
+}
+.pagew {
+    width: 80vw;
+    margin: 0 auto;
+}
+/* quiz */
+#nav {
+    background-color: #3283f9;
+}
+.logo {
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    display: block;
+    color: #fff;
+    font-family: 'Jalnan';
+}
+
+.quiz {
+    background: no-repeat center;
+    width: 100%;
+    height: 100vh;
+}
+.quiz-input {
+    border: 1px solid #000;
+    width: 30%;
+    height: 10%;
+    margin: 1rem 0;
+    text-align: center;
+}
+.timer-wrap {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0;
+}
+.timer {
+    font-size: 1.5rem;
+    font-family: 'EF_MACHO';
+}
+.quiz-box {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #333;
+    background: rgba(255,255,255,0.6);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.quiz-title {
+    font-size: 2rem;
+    padding: 1rem;
+}
+.question {}
+.answer {}
+
+.quiz-modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    display: none;
+}
+.quiz-modal-cont {
+    width: 50vw;
+    height: 50vh;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+.quiz-modal-cont p {
+    font-size: 3rem;
+    cursor: default;
+}
+.quiz-modal-button {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 10%;
+}
+.quiz-modal-button button {
+    margin: 1rem;
+    font-size: 1.2rem;
+    background-color: #3283f9;
+    padding: 0.5rem 2rem;
+    color: #fff;
+    cursor: pointer;
+}
+.quiz-modal-button button:hover {
+    background-color: #1c55ad;
+}
+
+@media all and (max-width: 1000px) {
+    .quiz-modal {
+        width: 800px;
+    }
+    .quiz-modal-cont p {
+        font-size: 2rem;
+    }
+    .quiz-modal-button button {
+        padding: 1rem;
+        margin: 0.2rem;
+    }
+}

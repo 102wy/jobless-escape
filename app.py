@@ -85,11 +85,43 @@ def sign_in():
             'exp': datetime.utcnow() + timedelta(seconds=3600)  # 로그인 24시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+        print(token)
 
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+
+
+
+@app.route('/quiz/<index>', methods=["GET"])
+def quiz(index):
+    print(index)
+    quiz_list = list(db.quiz.find({}, {'_id': False}))
+    quiz_index = db.quiz.find_one({'id': index})['id']
+    quiz_content = db.quiz.find_one({'id': index})['quiz']
+    quiz_answer = db.quiz.find_one({'id': index})['quiz_answer']
+    a = str(quiz_answer)
+    print(a)
+
+    return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content, quiz_answer=a)
+
+@app.route('/quiz/savetime', methods=['POST'])
+def quiz_savetime():
+    time_receive = request.form['time_give']
+    cookie_receive = request.form['cookie_give']
+    print(cookie_receive)
+    id = jwt.decode(cookie_receive,SECRET_KEY , algorithms='HS256')["id"]
+    print(id)
+
+
+    doc = {
+        "id":id,
+        "totaltime": time_receive
+
+    }
+    db.ranking.insert_one(doc)
+    return jsonify({'result': 'success'})
 
 
 
