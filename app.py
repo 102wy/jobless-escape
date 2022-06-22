@@ -16,9 +16,6 @@ PW = os.environ.get('DB_PW')
 client = MongoClient("mongodb+srv://"+ID+":"+PW+"@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
 db = client.joblessescape
 
-doc = {'id':'05','quiz':'퀴즈5','quiz_answer':'정답5'}
-db.quiz.insert_one(doc)
-
 @app.route('/', methods=["GET"])
 def home():
     return render_template('index.html')

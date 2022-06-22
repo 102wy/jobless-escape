@@ -8,25 +8,31 @@
 </head>
 <script>
     window.onload = function (){
-        const quizAnswer = document.querySelector('.quiz-input');
-        quizAnswer.addEventListener('keypress',(e)=>{
-            if(e.key === 'Enter'){
-                let quizValue = quizAnswer.value;
-                console.log(quizValue);
+        let quizInput = document.querySelector('.quiz-input');
+        quizInput.addEventListener('keypress', function (e){
+            let quizValue = quizInput.value;
+            if (e.key === 'Enter') {
                 let index = {{ quiz_index }};
-                let index2 = index +1 ;
-                if (quizValue == `{{ quiz_answer }}`){
+                let indexPlus = index + 1;
+                if (quizValue == `{{ quiz_answer }}`) {
                     let record = 60 - downtime;
-                    sessionStorage.setItem(`totaltime${index}`, record )
-                    location.href=`/quiz/0${index2}`
-                }else {
+                    let quizRecord = sessionStorage.getItem('totaltime');
+                    let totaltime = Number(quizRecord) + record;
+                    sessionStorage.setItem('totaltime', totaltime);
+                    if (`${index}` < 8) {
+                        location.href = `/quiz/0${indexPlus}`
+                    } else {
+                        location.href = `/`
+                        alert(sessionStorage.getItem('totaltime'));
+                    }
+                } else {
+                    sessionStorage.clear();
                     document.querySelector('.quiz-modal').style.display = 'flex';
                 }
+                quizInput = '';
             }
-            quizAnswer.value = '';
         });
     }
-
     let downtime = 60;
     const countDown = () => {
         setInterval(()=>{
