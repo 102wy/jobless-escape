@@ -16,7 +16,8 @@
                 let index = {{ quiz_index }};
                 let index2 = index +1 ;
                 if (quizValue == `{{ quiz_answer }}`){
-                    console.log('성공입니다');
+                    let record = 60 - downtime;
+                    sessionStorage.setItem(`totaltime${index}`, record )
                     location.href=`/quiz/0${index2}`
                 }else {
                     document.querySelector('.quiz-modal').style.display = 'flex';
@@ -25,6 +26,7 @@
             quizAnswer.value = '';
         });
     }
+
     let downtime = 60;
     const countDown = () => {
         setInterval(()=>{
@@ -41,6 +43,7 @@
         },1000);
     }
     countDown();
+
 </script>
 <body>
     <div class="wrap">
@@ -59,7 +62,6 @@
                     <p class="question">{{ quiz_content }}</p>
                     <input type="text" class="quiz-input" placeholder="정답을 입력하세요"/>
                 </div>
-
             </div>
         </section>
     </div>

@@ -16,6 +16,9 @@ PW = os.environ.get('DB_PW')
 client = MongoClient("mongodb+srv://"+ID+":"+PW+"@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
 db = client.joblessescape
 
+doc = {'id':'05','quiz':'퀴즈5','quiz_answer':'정답5'}
+db.quiz.insert_one(doc)
+
 @app.route('/', methods=["GET"])
 def home():
     return render_template('index.html')
@@ -31,12 +34,6 @@ def quiz(index):
     print(a)
 
     return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content, quiz_answer=a)
-
-@app.route('/quiz/<index>', methods=["POST"])
-def checking(index):
-    quiz_list = list(db.quiz.find({}, {'_id': False}))
-
-    return render_template('quiz.html')
 
 
 if __name__ == '__main__':
