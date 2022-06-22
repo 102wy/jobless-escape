@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Sign Up page</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+    <script>
+        function logout() {
+            document.cookie = "mytoken" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            window.location.href='/'
+        }
+
+    </script>
+</head>
+<body>
+<nav class="navbar">
+    <a class="title" href="/">백수 탈출</a>
+    <div class="right-container">
+        <button class="login-btn" onclick="logout()">로그아웃</button>
+        <button class="back-btn" onclick="location.href='/'">돌아가기</button>
+    </div>
+</nav>
+<section id="ranking">
+    <div class="pagew">
+        <div class="ranking-box">
+            <ul class="ranking-menu">
+                <li>순위</li>
+                <li>닉네임</li>
+                <li>시간 (초)</li>
+                <li>리뷰</li>
+            </ul>
+            <ul class="ranking-cont">
+
+                {% for row in rank_list %}
+                    {% set nickname = row.nickname %}
+                    {% set totaltime = row.totaltime %}
+                    {% set review = row.review %}
+
+                    <li>
+                        <ul class="ranking-user-cont">
+
+                            <li>{{ loop.index }}</li>
+                            <li>{{ nickname }}</li>
+                            <li>{{ totaltime }}</li>
+                            <li>{{ review }}</li>
+
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+
+    </div>
+</section>
+
+
+</body>
+
+</html>
