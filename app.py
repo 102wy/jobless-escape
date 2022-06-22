@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request, jsonify , redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import jwt
@@ -16,10 +16,63 @@ load_dotenv()
 ID = os.environ.get('DB_ID')
 PW = os.environ.get('DB_PW')
 # DB
-client = MongoClient("mongodb+srv://"+ID+":"+PW+"@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(
+    "mongodb+srv://" + ID + ":" + PW + "@joblessescape.dvnaltz.mongodb.net/?retryWrites=true&w=majority")
 db = client.joblessescape
 
 SECRET_KEY = 'SPARTA'
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+react_data = requests.get("https://www.jobkorea.co.kr/Search/?stext=react&careerType=1", headers=headers)
+spring_data = requests.get("https://www.jobkorea.co.kr/Search/?stext=spring&careerType=1", headers=headers)
+
+soup_react = BeautifulSoup(react_data.text, 'html.parser')
+soup_spring = BeautifulSoup(spring_data.text, 'html.parser')
+
+job_announcements_react = soup_react.select(
+    '#content > div > div > div.cnt-list-wrap > div > div.recruit-info > div.lists > div > div.list-default > ul > li')
+job_announcements_spring = soup_spring.select(
+    '#content > div > div > div.cnt-list-wrap > div > div.recruit-info > div.lists > div > div.list-default > ul > li')
+
+db.job_announcement_react.drop()
+db.job_announcement_spring.drop()
+
+for job_announcement_react in job_announcements_react:
+    company_name = job_announcement_react.select_one('div > div.post-list-corp > a').text
+    info = job_announcement_react.select_one('div > div.post-list-info > a').text.strip()
+    job = job_announcement_react.select_one('div > div.post-list-info > p.etc').text
+    exp = job_announcement_react.select_one('div > div.post-list-info > p.option > span.exp').text
+    region = job_announcement_react.select_one('div > div.post-list-info > p.option > span.loc.long').text
+    date = job_announcement_react.select_one('div > div.post-list-info > p.option > span.date').text
+
+    doc = {
+        'company_name': company_name,
+        'info': info,
+        'job': job,
+        'exp': exp,
+        'region': region,
+        'date': date
+    }
+    db.job_announcement_react.insert_one(doc)
+
+for job_announcement_spring in job_announcements_spring:
+    company_name = job_announcement_spring.select_one('div > div.post-list-corp > a').text
+    info = job_announcement_spring.select_one('div > div.post-list-info > a').text.strip()
+    job = job_announcement_spring.select_one('div > div.post-list-info > p.etc').text
+    exp = job_announcement_spring.select_one('div > div.post-list-info > p.option > span.exp').text
+    region = job_announcement_spring.select_one('div > div.post-list-info > p.option > span.loc.long').text
+    date = job_announcement_spring.select_one('div > div.post-list-info > p.option > span.date').text
+
+    doc = {
+        'company_name': company_name,
+        'info': info,
+        'job': job,
+        'exp': exp,
+        'region': region,
+        'date': date
+    }
+    db.job_announcement_spring.insert_one(doc)
 
 
 @app.route('/', methods=["GET"])
@@ -35,15 +88,15 @@ def home():
         return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
 
 
-@app.route('/signup',methods=["GET"])
+@app.route('/signup', methods=["GET"])
 def signup():
     msg = request.args.get("msg")
     return render_template('signup_page.html', msg=msg)
 
 
-@app.route('/ranking',methods=["GET"])
+@app.route('/ranking', methods=["GET"])
 def ranking():
-    ranking_list = list(db.ranking.find({},{'_id':False}))
+    ranking_list = list(db.ranking.find({}, {'_id': False}))
     return render_template('ranking.html', ranking_list=ranking_list)
 
 
@@ -99,7 +152,6 @@ def sign_in():
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-
 @app.route('/quiz/<index>', methods=["GET"])
 def quiz(index):
     print(index)
@@ -110,26 +162,45 @@ def quiz(index):
     a = str(quiz_answer)
     print(a)
 
-    return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content, quiz_answer=a)
+    return render_template('quiz.html', quiz_list=quiz_list, quiz_index=quiz_index, quiz_content=quiz_content,
+                           quiz_answer=a)
+
 
 @app.route('/quiz/savetime', methods=['POST'])
 def quiz_savetime():
     time_receive = request.form['time_give']
     cookie_receive = request.form['cookie_give']
+    review_receive = request.form["review_give"]
     print(cookie_receive)
-    id = jwt.decode(cookie_receive,SECRET_KEY , algorithms='HS256')["id"]
-    user = db.users.find_one({'id':id})
-
-
+    id = jwt.decode(cookie_receive, SECRET_KEY, algorithms='HS256')["id"]
+    user = db.users.find_one({'id': id})
 
     doc = {
-        "nickname":user["nickname"],
-        "totaltime": time_receive
-
+        "nickname": user["nickname"],
+        "totaltime": time_receive,
+        "review": review_receive
     }
     db.ranking.insert_one(doc)
     return jsonify({'result': 'success'})
 
+
+@app.route('/job_announcement', methods=["GET"])
+def job_announcement():
+    job_announcement_react_list = list(db.job_announcement_react.find({}, {'_id': False}))
+    job_announcement_spring_list = list(db.job_announcement_spring.find({}, {'_id': False}))
+
+    return render_template('job_announcement.html',
+                           rows_react=job_announcement_react_list, rows_spring=job_announcement_spring_list)
+
+
+@app.route('/ranking/<totalTime>', methods=["GET"])
+def rank(totalTime):
+    return render_template('ranking.html', totalTime=totalTime)
+
+
+@app.route('/rankingAndReview/<totalTime>/<review>', methods=["GET"])
+def rankAndReview(totalTime, review):
+    return render_template('ranking.html', totalTime=totalTime, review=review)
 
 
 if __name__ == '__main__':

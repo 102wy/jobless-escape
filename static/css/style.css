@@ -1,4 +1,6 @@
 @import url('https://webfontworld.github.io/goodchoice/Jalnan.css');
+@import url('https://webfontworld.github.io/tmon/Tmon.css');
+@import url('https://webfontworld.github.io/Noto/NotoSansKR.css');
 
 @font-face {
     font-family: 'EF_MACHO';
@@ -34,6 +36,97 @@ body {
     margin: 0 auto;
 }
 
+/* main */
+.navbar {
+    background-color: #3283f9;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.navbar a {
+    color: white;
+    font-size: 38px;
+}
+
+.is-sparta {
+    color: #3283f9 !important;
+}
+
+.button.is-sparta {
+    background-color: #3283f9;
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.button.is-sparta.is-outlined {
+    background-color: transparent;
+    border-color: #3283f9;
+    color: #3283f9 !important;
+}
+
+.help {
+    color: gray;
+}
+
+.right-container button {
+    background-color: transparent;
+    margin: 0 40px;
+    font-family: 'Jalnan';
+    font-size: 18px;
+    color: whitesmoke;
+}
+
+.right-container button:hover {
+    color: black;
+}
+
+.home {
+    text-align: center;
+}
+
+.title-container {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.title-container h1 {
+    margin: 20px 0;
+}
+
+.first-title {
+    font-size: 80px;
+}
+
+.second-title {
+    font-size: 60px;
+    color: #3283f9;
+}
+
+.background-image {
+    width: 400px;
+}
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.start {
+    background-color: #3283f9;
+    width: 500px;
+    padding: 20px;
+    font-size: 32px;
+    border-radius: 12px;
+}
+
+.start a {
+    color: white;
+}
+
 /* quiz */
 #nav {
     background-color: #3283f9;
@@ -44,7 +137,6 @@ body {
     padding: 1rem 2rem;
     display: block;
     color: #fff;
-    font-family: 'Jalnan';
 }
 
 .quiz {
@@ -146,21 +238,7 @@ body {
     background-color: #1c55ad;
 }
 
-@media all and (max-width: 1000px) {
-    .quiz-modal {
-        width: 800px;
-    }
-
-    .quiz-modal-cont p {
-        font-size: 2rem;
-    }
-
-    .quiz-modal-button button {
-        padding: 1rem;
-        margin: 0.2rem;
-    }
-}
-
+/* ranking */
 #ranking {
     margin-top: 2rem;
     text-align: center;
@@ -228,16 +306,17 @@ body {
     background-color: #e5efff;
 }
 
-.navbar {
-    background-color: #3283f9;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px 0;
-}
+@media all and (max-width: 1000px) {
+    .quiz-modal {
+        width: 800px;
+    }
 
-.navbar a {
-    color: white;
-    font-size: 38px;
+    .quiz-modal-cont p {
+        font-size: 2rem;
+    }
 
+    .quiz-modal-button button {
+        padding: 1rem;
+        margin: 0.2rem;
+    }
 }
