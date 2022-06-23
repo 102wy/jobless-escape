@@ -100,7 +100,7 @@
         }
         sessionStorage.setItem("time"+index,"0")
         for(let i=1; i<index; i++){
-            if(sessionStorage.getItem("time"+i)==null){
+            if(sessionStorage.getItem("time"+i)==null || sessionStorage.getItem("time"+i)==="0"){
                 alert("비정상적인 접근입니다")
                 sessionStorage.clear()
                 location.href='/'
