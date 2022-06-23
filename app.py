@@ -134,7 +134,7 @@ def sign_in():
             'id': id_receive,
             'exp': datetime.utcnow() + timedelta(seconds=3600)  # 로그인 24시간 유지
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
         print(token)
 
         return jsonify({'result': 'success', 'token': token})
@@ -196,7 +196,6 @@ def job_announcement():
         return redirect(url_for("signup", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
-
 
 @app.route('/ranking', methods=["GET"])
 def ranking():

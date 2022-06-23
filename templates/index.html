@@ -16,7 +16,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        if(sessionStorage.getItem("quiz_logout")==="1"){
+            sessionStorage.clear()
+            logout()
+            alert("로그아웃되셧습니다")
+        }
         sessionStorage.clear()
+
+
+
     });
     function logout(){
         document.cookie = "mytoken" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';

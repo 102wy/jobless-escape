@@ -52,7 +52,7 @@
                         text: '간단하게 적어주세요!',
                         input: 'text',
                         inputAttributes: {
-                            maxlength: 20
+                            maxlength: 20,
                         },
                         inputPlaceholder: '한줄리뷰'
                     })
@@ -159,13 +159,16 @@
         sessionStorage.clear()
         location.href='/quiz/01';
     }
+
+
+
 </script>
 <body>
 <div class="wrap">
     <nav class="navbar">
         <a class="title" href="/" style="margin: 0">백수 탈출</a>
         <div class="right-container">
-            <button class="login-btn" onclick="logout()">로그아웃</button>
+            <button class="ranking-btn" onclick="location.href='/ranking'">랭킹</button>
             <button class="back-btn" onclick="location.href='/'">돌아가기</button>
         </div>
     </nav>
@@ -177,7 +180,7 @@
             <div class="quiz-box">
                 <h3 class="quiz-title">Quiz {{ quiz_index }}</h3>
                 <p class="question">{{ quiz_content }}</p>
-                <input type="text" class="quiz-input" placeholder="정답을 입력하세요"/>
+                <input type="text" class="quiz-input"  autofocus placeholder="정답을 입력하세요"/>
             </div>
         </div>
     </section>
