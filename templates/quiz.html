@@ -94,6 +94,11 @@
 
     window.onload = function () {
         let index = {{ quiz_index }};
+        if(sessionStorage.getItem("time"+index)!=null){
+            alert("새로고침 불가능")
+            location.href='/'
+        }
+        sessionStorage.setItem("time"+index,"0")
         for(let i=1; i<index; i++){
             if(sessionStorage.getItem("time"+i)==null){
                 alert("비정상적인 접근입니다")
@@ -150,7 +155,10 @@
         sessionStorage.clear()
         location.href = "/"
     }
-
+    function clickRe (){
+        sessionStorage.clear()
+        location.href='/quiz/01';
+    }
 </script>
 <body>
 <div class="wrap">
@@ -178,7 +186,7 @@
     <div class="quiz-modal-cont">
         <p>취업에 실패하셨습니다.</p>
         <div class="quiz-modal-button">
-            <button onclick="location.href='/quiz/01'">재도전</button>
+            <button onclick="clickRe()">재도전</button>
             <button onclick="location.href='/'">나가기</button>
         </div>
     </div>

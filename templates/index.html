@@ -13,9 +13,11 @@
     <title>백수탈출</title>
     <link rel="stylesheet" href="/static/css/style.css"/>
 </head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-
+    $(document).ready(function () {
+        sessionStorage.clear()
+    });
     function logout(){
         document.cookie = "mytoken" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         window.location.reload()
