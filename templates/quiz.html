@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta property="og:title" content="백수탈출" />
+    <meta property="og:description" content="퀴즈를 풀면서 실력 향상시켜 백수 탈출하자!" />
+    <meta property="og:image" content="/static/img/background-image.png" />
     <title>Quiz</title>
     <link rel="stylesheet" href="/static/css/style.css?ver=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -37,6 +40,7 @@
                         review_give: ""
                     },
                     success: function (response) {
+                        sessionStorage.clear()
                         window.location.href = "/ranking";
                     }
                 });
@@ -72,6 +76,7 @@
                                         review_give: getReview
                                     },
                                     success: function (response) {
+                                        sessionStorage.clear()
                                         window.location.href = "/ranking"
 
                                     }
@@ -88,22 +93,33 @@
 
 
     window.onload = function () {
+        let index = {{ quiz_index }};
+        for(let i=1; i<index; i++){
+            if(sessionStorage.getItem("time"+i)==null){
+                alert("비정상적인 접근입니다")
+                sessionStorage.clear()
+                location.href='/'
+                break;
+            }
+        }
         let quizInput = document.querySelector('.quiz-input');
         quizInput.addEventListener('keypress', function (e) {
             let quizValue = quizInput.value;
             if (e.key === 'Enter') {
-                let index = {{ quiz_index }};
+
                 let indexPlus = index + 1;
+                let totaltime = 0
                 if (quizValue == `{{ quiz_answer }}`) {
                     let record = 60 - downtime;
-                    let quizRecord = sessionStorage.getItem('totaltime');
-                    let totaltime = Number(quizRecord) + record;
+                    sessionStorage.setItem('time'+index,record);
+                    for(let j = 0; j<=index; j++){
+                        totaltime = Number(sessionStorage.getItem("time"+j))+totaltime
+                    }
                     sessionStorage.setItem('totaltime', totaltime);
                     if (`${index}` < 8) {
                         location.href = `/quiz/0${indexPlus}`
                     } else {
                         savetime()
-
                     }
                 } else {
                     sessionStorage.clear();
@@ -141,10 +157,10 @@
     <nav class="navbar">
         <a class="title" href="/" style="margin: 0">백수 탈출</a>
         <div class="right-container">
-        <button class="login-btn" onclick="logout()">로그아웃</button>
-        <button class="back-btn" onclick="location.href='/'">돌아가기</button>
-    </div>
-</nav>
+            <button class="login-btn" onclick="logout()">로그아웃</button>
+            <button class="back-btn" onclick="location.href='/'">돌아가기</button>
+        </div>
+    </nav>
     <section class="quiz" style="background-image: url('../static/img/quiz_background{{ quiz_index }}.png')">
         <div class="pagew">
             <div class="timer-wrap">

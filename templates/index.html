@@ -7,7 +7,10 @@
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Sign Up page</title>
+    <meta property="og:title" content="백수탈출" />
+    <meta property="og:description" content="퀴즈를 풀면서 실력 향상시켜 백수 탈출하자!" />
+    <meta property="og:image" content="/static/img/background-image.png" />
+    <title>백수탈출</title>
     <link rel="stylesheet" href="/static/css/style.css"/>
 </head>
 
@@ -23,7 +26,11 @@
 <nav class="navbar">
     <a class="title" onclick="location.href='/'">백수 탈출</a>
     <div class="right-container">
+        {% if token == null %}
+        <button class="logout-btn" onclick="location.href='/signup'">로그인</button>
+        {% else %}
         <button class="logout-btn" onclick="logout()">로그아웃</button>
+        {% endif %}
         <button class="ranking-btn" onclick="location.href='/ranking'">랭킹</button>
         <button class="ranking-btn" onclick="location.href='/job_announcement'">취업공고</button>
     </div>

@@ -73,19 +73,17 @@ for job_announcement_spring in job_announcements_spring:
     }
     db.job_announcement_spring.insert_one(doc)
 
-
 @app.route('/', methods=["GET"])
 def home():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
-        return render_template('index.html')
+        return render_template('index.html',token=token_receive)
     except jwt.ExpiredSignatureError:
-        return redirect(url_for("signup", msg="로그인 시간이 만료되었습니다."))
+        return render_template('index.html')
     except jwt.exceptions.DecodeError:
-        return redirect(url_for("signup", msg="로그인 정보가 존재하지 않습니다."))
-
+        return render_template('index.html')
 
 @app.route('/signup', methods=["GET"])
 def signup():
